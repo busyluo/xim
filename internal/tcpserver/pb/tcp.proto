@@ -1,0 +1,59 @@
+syntax = "proto3";
+package pb;
+
+// 为避免IM的message和pb的message会混淆, IM的用缩写代替，即Msg
+
+// 数据包类型
+enum PacketType {
+    UNKNOWN_PACKET = 0;
+    LOGIN = 1; // 登录
+    MESSAGE = 2; // 消息
+    HEARTBEAT = 3; // 心跳
+    SYNC = 4; // 同步消息
+}
+
+// app 类型
+enum App {
+    UNKNOWN_APP = 0;
+    ANDROID = 1;
+    IOS = 2;
+    WIN = 3;
+    LINUX = 4;
+}
+
+message LoginReq {
+    App app = 1;
+    int64 device_id = 2; // 设备id
+    int64 user_id = 3; // 用户id
+    string token = 4; // 通过http api登录获取
+}
+
+message Text {
+    string text = 1; // 文字内容
+}
+
+message Image {
+    string url = 4; // 图片URL
+}
+
+// 消息
+message Message {
+    oneof content {
+        Text text = 1;
+        Image image = 2;
+    }
+}
+
+message RequestPacket {
+    PacketType type = 1; // 协议
+    int32 id = 2; // 请求编号
+    bytes data = 3; // 请求内容
+}
+
+message ResponsePacket {
+    PacketType type = 1; // 协议
+    int32 req_id = 2; // 请求编号
+    int32 code = 3; // 结果代码
+    string message = 4; // 错误信息
+    bytes data = 5; // 数据
+}
