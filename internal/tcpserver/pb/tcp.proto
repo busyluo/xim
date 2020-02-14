@@ -1,24 +1,24 @@
 syntax = "proto3";
 package pb;
 
-// 为避免IM的message和pb的message会混淆, IM的用缩写代替，即Msg
+import "errors.proto";
 
-// 数据包类型
+// 请求类型
 enum PacketType {
-    UNKNOWN_PACKET = 0;
-    LOGIN = 1; // 登录
-    MESSAGE = 2; // 消息
-    HEARTBEAT = 3; // 心跳
-    SYNC = 4; // 同步消息
+    PACKET_UNKNOWN = 0;
+    PACKET_LOGIN = 1; // 登入
+    PACKET_SEND_MESSAGE = 2; // 消息
+    PACKET_HEARTBEAT = 3; // 心跳
+    PACKET_SYNC = 4; // 同步消息
 }
 
 // app 类型
 enum App {
-    UNKNOWN_APP = 0;
-    ANDROID = 1;
-    IOS = 2;
-    WIN = 3;
-    LINUX = 4;
+    APP_UNKNOWN = 0;
+    APP_ANDROID = 1;
+    APP_IOS = 2;
+    APP_WIN = 3;
+    APP_LINUX = 4;
 }
 
 message LoginReq {
@@ -36,11 +36,32 @@ message Image {
     string url = 4; // 图片URL
 }
 
-// 消息
-message Message {
+enum ReceiverType {
+    RECEIVER_UNKNOWN = 0; // 未知
+    RECEIVER_USER = 1; // 用户
+    RECEIVER_GROUP = 2; // 群组
+}
+
+// 发出的消息
+message SendMessage {
+    ReceiverType receiver_type = 1;
+    int64 receiver = 2;
+    int64 seq = 3;
+    int64 send_time = 4;
     oneof content {
-        Text text = 1;
-        Image image = 2;
+        Text text = 5;
+        Image image = 6;
+    }
+}
+
+// 接收到的消息
+message RecvMessage {
+    int64 sender = 2;
+    int64 seq = 3;
+    int64 send_time = 4;
+    oneof content {
+        Text text = 5;
+        Image image = 6;
     }
 }
 
@@ -53,7 +74,7 @@ message RequestPacket {
 message ResponsePacket {
     PacketType type = 1; // 协议
     int32 req_id = 2; // 请求编号
-    int32 code = 3; // 结果代码
+    ErrorCode code = 3; // 结果代码
     string message = 4; // 错误信息
     bytes data = 5; // 数据
 }

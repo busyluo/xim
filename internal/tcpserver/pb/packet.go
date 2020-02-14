@@ -10,7 +10,7 @@ func MarshalRequest(id RequestId, message proto.Message) []byte {
 	var t PacketType
 	switch message.(type) {
 	case *LoginReq:
-		t = PacketType_LOGIN
+		t = PacketType_PACKET_LOGIN
 	default:
 		panic("unexpected message")
 	}
