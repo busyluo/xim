@@ -1,0 +1,44 @@
+syntax = "proto3";
+package pb;
+
+import "common.proto";
+import "google/protobuf/empty.proto";
+
+message SignInReq {
+    App app = 1;
+    int64 device_id = 2; // 设备id
+    int64 user_id = 3; // 用户id
+    string token = 4; // 通过http api登录获取
+}
+
+// 上行消息
+message UpMessage {
+    ReceiverType receiver_type = 1;
+    int64 receiver = 2;
+    int64 seq = 3;
+    int64 send_time = 4;
+    oneof content {
+        Text text = 5;
+        Image image = 6;
+    }
+}
+
+// 下行消息
+message DownMessage {
+    int64 sender = 2;
+    int64 seq = 3;
+    int64 send_time = 4;
+    oneof content {
+        Text text = 5;
+        Image image = 6;
+    }
+}
+
+// rpc
+// message Empty {}
+message SendMessageResponse {
+}
+service Logic {
+    rpc SignIn (SignInReq) returns (google.protobuf.Empty);
+    rpc SendMessage (UpMessage) returns (google.protobuf.Empty);
+}

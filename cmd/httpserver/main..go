@@ -1,9 +1,20 @@
 package main
 
 import (
+	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"net/http"
+)
+
+// 定义全区变量 为了保证执行顺序 初始化均在main中执行
+var (
+	// gorm mysql db connection
+	db *gorm.DB
+	// redis client
+	// rdb *redis.Client
+	// global cache
+	// cc *cache.Codec
 )
 
 func main() {

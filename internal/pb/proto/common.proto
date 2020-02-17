@@ -1,0 +1,25 @@
+syntax = "proto3";
+package pb;
+
+// app 类型
+enum App {
+    APP_UNKNOWN = 0;
+    APP_ANDROID = 1;
+    APP_IOS = 2;
+    APP_WIN = 3;
+    APP_LINUX = 4;
+}
+
+message Text {
+    string text = 1; // 文字内容
+}
+
+message Image {
+    string url = 4; // 图片URL
+}
+
+enum ReceiverType {
+    RECEIVER_UNKNOWN = 0; // 未知
+    RECEIVER_USER = 1; // 用户
+    RECEIVER_GROUP = 2; // 群组
+}

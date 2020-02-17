@@ -2,7 +2,8 @@ package tcpserver
 
 import (
 	"github.com/golang/protobuf/proto"
-	"xim/internal/tcpserver/pb"
+	"xim/internal/pb"
+	tcppb "xim/internal/tcpserver/pb"
 	"xim/internal/tcpserver/rpc"
 )
 
@@ -12,29 +13,29 @@ type Handler struct {
 
 var handler Handler
 
-func (h *Handler) Handle(ctx *ConnCtx, req pb.RequestPacket) {
+func (h *Handler) Handle(ctx *ConnCtx, req tcppb.RequestPacket) {
 	h.ctx = ctx
 
 	switch req.Type {
-	case pb.PacketType_PACKET_LOGIN:
-		h.Login(req)
-	case pb.PacketType_PACKET_HEARTBEAT:
+	case tcppb.PacketType_PACKET_SIGN_IN:
+		h.SignIn(req)
+	case tcppb.PacketType_PACKET_HEARTBEAT:
 		h.HeartBeat(req)
-	case pb.PacketType_PACKET_SEND_MESSAGE:
+	case tcppb.PacketType_PACKET_SEND_MESSAGE:
 		h.Message(req)
 	}
 }
 
-func (h *Handler) Login(req pb.RequestPacket) {
-	var login pb.LoginReq
-	proto.Unmarshal(req.Data, &login)
+func (h *Handler) SignIn(req tcppb.RequestPacket) {
+	var r pb.SignInReq
+	proto.Unmarshal(req.Data, &r)
 
 	ctx := h.ctx
-	ctx.DeviceId = login.DeviceId
-	ctx.UserId = login.UserId
-	ctx.AppId = int8(login.App)
+	ctx.DeviceId = r.DeviceId
+	ctx.UserId = r.UserId
+	ctx.AppId = int8(r.App)
 
-	err := rpc.Login(login)
+	err := rpc.SignIn(r)
 
 	if err != nil {
 		h.ResponseError(req, pb.ErrorCode_EC_INTERNAL_SERVICE, err.Error())
@@ -42,15 +43,15 @@ func (h *Handler) Login(req pb.RequestPacket) {
 	}
 
 	// 保存连接
-	manager.Store(login.DeviceId, ctx)
+	manager.Store(r.DeviceId, ctx)
 }
 
-func (h *Handler) HeartBeat(req pb.RequestPacket) {
+func (h *Handler) HeartBeat(req tcppb.RequestPacket) {
 	h.ResponseOk(req)
 }
 
-func (h *Handler) Message(req pb.RequestPacket) {
-	var msg pb.SendMessage
+func (h *Handler) Message(req tcppb.RequestPacket) {
+	var msg pb.UpMessage
 	proto.Unmarshal(req.Data, &msg)
 
 	err := rpc.SendMessage(msg)
@@ -62,11 +63,11 @@ func (h *Handler) Message(req pb.RequestPacket) {
 	h.ResponseOk(req)
 }
 
-func (h *Handler) ResponseOk(req pb.RequestPacket) {
-	res := pb.ResponsePacket{
+func (h *Handler) ResponseOk(req tcppb.RequestPacket) {
+	res := tcppb.ResponsePacket{
 		Type:    req.Type,
 		ReqId:   req.Id,
-		Code:    pb.ErrorCode_EC_SUCCESS,
+		Code:    int32(pb.ErrorCode_EC_SUCCESS),
 		Message: "",
 		Data:    nil,
 	}
@@ -74,11 +75,11 @@ func (h *Handler) ResponseOk(req pb.RequestPacket) {
 	h.ctx.codec.Encode(buf)
 }
 
-func (h *Handler) ResponseError(req pb.RequestPacket, ec pb.ErrorCode, msg string) {
-	res := pb.ResponsePacket{
+func (h *Handler) ResponseError(req tcppb.RequestPacket, ec pb.ErrorCode, msg string) {
+	res := tcppb.ResponsePacket{
 		Type:    req.Type,
 		ReqId:   req.Id,
-		Code:    ec,
+		Code:    int32(ec),
 		Message: msg,
 		Data:    nil,
 	}

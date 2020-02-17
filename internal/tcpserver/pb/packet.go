@@ -2,6 +2,7 @@ package pb
 
 import (
 	"github.com/golang/protobuf/proto"
+	"xim/internal/pb"
 )
 
 type RequestId int32
@@ -9,8 +10,8 @@ type RequestId int32
 func MarshalRequest(id RequestId, message proto.Message) []byte {
 	var t PacketType
 	switch message.(type) {
-	case *LoginReq:
-		t = PacketType_PACKET_LOGIN
+	case *pb.SignInReq:
+		t = PacketType_PACKET_SIGN_IN
 	default:
 		panic("unexpected message")
 	}

@@ -1,0 +1,25 @@
+syntax = "proto3";
+package pb;
+
+// 请求类型
+enum PacketType {
+    PACKET_UNKNOWN = 0;
+    PACKET_SIGN_IN = 1; // 登入
+    PACKET_SEND_MESSAGE = 2; // 消息
+    PACKET_HEARTBEAT = 3; // 心跳
+    PACKET_SYNC = 4; // 同步消息
+}
+
+message RequestPacket {
+    PacketType type = 1; // 协议
+    int32 id = 2; // 请求编号
+    bytes data = 3; // 请求内容
+}
+
+message ResponsePacket {
+    PacketType type = 1; // 协议
+    int32 req_id = 2; // 请求编号
+    int32 code = 3; // 结果代码
+    string message = 4; // 错误信息
+    bytes data = 5; // 数据
+}
