@@ -1,4 +1,4 @@
-package model
+package entity
 
 type Message struct {
 	// Id       int32 // id

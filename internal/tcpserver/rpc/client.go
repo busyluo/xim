@@ -1,17 +1,11 @@
 package rpc
 
-import (
-	svr "xim/internal/logic/rpc"
-	"xim/internal/pb"
-)
-
-var server svr.LogicRpcServer
-
-func SignIn(req pb.SignInReq) error {
-	_, err := server.SignIn(nil, &req)
-	return err
-}
-
-func SendMessage(message pb.UpMessage) error {
-	return nil
-}
+//func SignIn(r pb.SignInReq) error {
+//	_, err := svr.Server.SignIn(nil, &r)
+//	return err
+//}
+//
+//func SendMessage(m pb.UpMessage) error {
+//	_, err := svr.Server.SendMessage(nil, &m)
+//	return err
+//}

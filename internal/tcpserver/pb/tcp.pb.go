@@ -25,7 +25,7 @@ type PacketType int32
 
 const (
 	PacketType_PACKET_UNKNOWN      PacketType = 0
-	PacketType_PACKET_LOGIN        PacketType = 1
+	PacketType_PACKET_SIGN_IN      PacketType = 1
 	PacketType_PACKET_SEND_MESSAGE PacketType = 2
 	PacketType_PACKET_HEARTBEAT    PacketType = 3
 	PacketType_PACKET_SYNC         PacketType = 4
@@ -33,7 +33,7 @@ const (
 
 var PacketType_name = map[int32]string{
 	0: "PACKET_UNKNOWN",
-	1: "PACKET_LOGIN",
+	1: "PACKET_SIGN_IN",
 	2: "PACKET_SEND_MESSAGE",
 	3: "PACKET_HEARTBEAT",
 	4: "PACKET_SYNC",
@@ -41,7 +41,7 @@ var PacketType_name = map[int32]string{
 
 var PacketType_value = map[string]int32{
 	"PACKET_UNKNOWN":      0,
-	"PACKET_LOGIN":        1,
+	"PACKET_SIGN_IN":      1,
 	"PACKET_SEND_MESSAGE": 2,
 	"PACKET_HEARTBEAT":    3,
 	"PACKET_SYNC":         4,
@@ -53,428 +53,6 @@ func (x PacketType) String() string {
 
 func (PacketType) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_5d2504774879b91c, []int{0}
-}
-
-// app 类型
-type App int32
-
-const (
-	App_APP_UNKNOWN App = 0
-	App_APP_ANDROID App = 1
-	App_APP_IOS     App = 2
-	App_APP_WIN     App = 3
-	App_APP_LINUX   App = 4
-)
-
-var App_name = map[int32]string{
-	0: "APP_UNKNOWN",
-	1: "APP_ANDROID",
-	2: "APP_IOS",
-	3: "APP_WIN",
-	4: "APP_LINUX",
-}
-
-var App_value = map[string]int32{
-	"APP_UNKNOWN": 0,
-	"APP_ANDROID": 1,
-	"APP_IOS":     2,
-	"APP_WIN":     3,
-	"APP_LINUX":   4,
-}
-
-func (x App) String() string {
-	return proto.EnumName(App_name, int32(x))
-}
-
-func (App) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_5d2504774879b91c, []int{1}
-}
-
-type ReceiverType int32
-
-const (
-	ReceiverType_RECEIVER_UNKNOWN ReceiverType = 0
-	ReceiverType_RECEIVER_USER    ReceiverType = 1
-	ReceiverType_RECEIVER_GROUP   ReceiverType = 2
-)
-
-var ReceiverType_name = map[int32]string{
-	0: "RECEIVER_UNKNOWN",
-	1: "RECEIVER_USER",
-	2: "RECEIVER_GROUP",
-}
-
-var ReceiverType_value = map[string]int32{
-	"RECEIVER_UNKNOWN": 0,
-	"RECEIVER_USER":    1,
-	"RECEIVER_GROUP":   2,
-}
-
-func (x ReceiverType) String() string {
-	return proto.EnumName(ReceiverType_name, int32(x))
-}
-
-func (ReceiverType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_5d2504774879b91c, []int{2}
-}
-
-type LoginReq struct {
-	App                  App      `protobuf:"varint,1,opt,name=app,proto3,enum=pb.App" json:"app,omitempty"`
-	DeviceId             int64    `protobuf:"varint,2,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	UserId               int64    `protobuf:"varint,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Token                string   `protobuf:"bytes,4,opt,name=token,proto3" json:"token,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *LoginReq) Reset()         { *m = LoginReq{} }
-func (m *LoginReq) String() string { return proto.CompactTextString(m) }
-func (*LoginReq) ProtoMessage()    {}
-func (*LoginReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5d2504774879b91c, []int{0}
-}
-
-func (m *LoginReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_LoginReq.Unmarshal(m, b)
-}
-func (m *LoginReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_LoginReq.Marshal(b, m, deterministic)
-}
-func (m *LoginReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_LoginReq.Merge(m, src)
-}
-func (m *LoginReq) XXX_Size() int {
-	return xxx_messageInfo_LoginReq.Size(m)
-}
-func (m *LoginReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_LoginReq.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_LoginReq proto.InternalMessageInfo
-
-func (m *LoginReq) GetApp() App {
-	if m != nil {
-		return m.App
-	}
-	return App_APP_UNKNOWN
-}
-
-func (m *LoginReq) GetDeviceId() int64 {
-	if m != nil {
-		return m.DeviceId
-	}
-	return 0
-}
-
-func (m *LoginReq) GetUserId() int64 {
-	if m != nil {
-		return m.UserId
-	}
-	return 0
-}
-
-func (m *LoginReq) GetToken() string {
-	if m != nil {
-		return m.Token
-	}
-	return ""
-}
-
-type Text struct {
-	Text                 string   `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Text) Reset()         { *m = Text{} }
-func (m *Text) String() string { return proto.CompactTextString(m) }
-func (*Text) ProtoMessage()    {}
-func (*Text) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5d2504774879b91c, []int{1}
-}
-
-func (m *Text) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Text.Unmarshal(m, b)
-}
-func (m *Text) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Text.Marshal(b, m, deterministic)
-}
-func (m *Text) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Text.Merge(m, src)
-}
-func (m *Text) XXX_Size() int {
-	return xxx_messageInfo_Text.Size(m)
-}
-func (m *Text) XXX_DiscardUnknown() {
-	xxx_messageInfo_Text.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Text proto.InternalMessageInfo
-
-func (m *Text) GetText() string {
-	if m != nil {
-		return m.Text
-	}
-	return ""
-}
-
-type Image struct {
-	Url                  string   `protobuf:"bytes,4,opt,name=url,proto3" json:"url,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Image) Reset()         { *m = Image{} }
-func (m *Image) String() string { return proto.CompactTextString(m) }
-func (*Image) ProtoMessage()    {}
-func (*Image) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5d2504774879b91c, []int{2}
-}
-
-func (m *Image) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Image.Unmarshal(m, b)
-}
-func (m *Image) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Image.Marshal(b, m, deterministic)
-}
-func (m *Image) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Image.Merge(m, src)
-}
-func (m *Image) XXX_Size() int {
-	return xxx_messageInfo_Image.Size(m)
-}
-func (m *Image) XXX_DiscardUnknown() {
-	xxx_messageInfo_Image.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Image proto.InternalMessageInfo
-
-func (m *Image) GetUrl() string {
-	if m != nil {
-		return m.Url
-	}
-	return ""
-}
-
-// 发出的消息
-type SendMessage struct {
-	ReceiverType ReceiverType `protobuf:"varint,1,opt,name=receiver_type,json=receiverType,proto3,enum=pb.ReceiverType" json:"receiver_type,omitempty"`
-	Receiver     int64        `protobuf:"varint,2,opt,name=receiver,proto3" json:"receiver,omitempty"`
-	Seq          int64        `protobuf:"varint,3,opt,name=seq,proto3" json:"seq,omitempty"`
-	SendTime     int64        `protobuf:"varint,4,opt,name=send_time,json=sendTime,proto3" json:"send_time,omitempty"`
-	// Types that are valid to be assigned to Content:
-	//	*SendMessage_Text
-	//	*SendMessage_Image
-	Content              isSendMessage_Content `protobuf_oneof:"content"`
-	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
-	XXX_unrecognized     []byte                `json:"-"`
-	XXX_sizecache        int32                 `json:"-"`
-}
-
-func (m *SendMessage) Reset()         { *m = SendMessage{} }
-func (m *SendMessage) String() string { return proto.CompactTextString(m) }
-func (*SendMessage) ProtoMessage()    {}
-func (*SendMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5d2504774879b91c, []int{3}
-}
-
-func (m *SendMessage) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SendMessage.Unmarshal(m, b)
-}
-func (m *SendMessage) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SendMessage.Marshal(b, m, deterministic)
-}
-func (m *SendMessage) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SendMessage.Merge(m, src)
-}
-func (m *SendMessage) XXX_Size() int {
-	return xxx_messageInfo_SendMessage.Size(m)
-}
-func (m *SendMessage) XXX_DiscardUnknown() {
-	xxx_messageInfo_SendMessage.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SendMessage proto.InternalMessageInfo
-
-func (m *SendMessage) GetReceiverType() ReceiverType {
-	if m != nil {
-		return m.ReceiverType
-	}
-	return ReceiverType_RECEIVER_UNKNOWN
-}
-
-func (m *SendMessage) GetReceiver() int64 {
-	if m != nil {
-		return m.Receiver
-	}
-	return 0
-}
-
-func (m *SendMessage) GetSeq() int64 {
-	if m != nil {
-		return m.Seq
-	}
-	return 0
-}
-
-func (m *SendMessage) GetSendTime() int64 {
-	if m != nil {
-		return m.SendTime
-	}
-	return 0
-}
-
-type isSendMessage_Content interface {
-	isSendMessage_Content()
-}
-
-type SendMessage_Text struct {
-	Text *Text `protobuf:"bytes,5,opt,name=text,proto3,oneof"`
-}
-
-type SendMessage_Image struct {
-	Image *Image `protobuf:"bytes,6,opt,name=image,proto3,oneof"`
-}
-
-func (*SendMessage_Text) isSendMessage_Content() {}
-
-func (*SendMessage_Image) isSendMessage_Content() {}
-
-func (m *SendMessage) GetContent() isSendMessage_Content {
-	if m != nil {
-		return m.Content
-	}
-	return nil
-}
-
-func (m *SendMessage) GetText() *Text {
-	if x, ok := m.GetContent().(*SendMessage_Text); ok {
-		return x.Text
-	}
-	return nil
-}
-
-func (m *SendMessage) GetImage() *Image {
-	if x, ok := m.GetContent().(*SendMessage_Image); ok {
-		return x.Image
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*SendMessage) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*SendMessage_Text)(nil),
-		(*SendMessage_Image)(nil),
-	}
-}
-
-// 接收到的消息
-type RecvMessage struct {
-	Sender   int64 `protobuf:"varint,2,opt,name=sender,proto3" json:"sender,omitempty"`
-	Seq      int64 `protobuf:"varint,3,opt,name=seq,proto3" json:"seq,omitempty"`
-	SendTime int64 `protobuf:"varint,4,opt,name=send_time,json=sendTime,proto3" json:"send_time,omitempty"`
-	// Types that are valid to be assigned to Content:
-	//	*RecvMessage_Text
-	//	*RecvMessage_Image
-	Content              isRecvMessage_Content `protobuf_oneof:"content"`
-	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
-	XXX_unrecognized     []byte                `json:"-"`
-	XXX_sizecache        int32                 `json:"-"`
-}
-
-func (m *RecvMessage) Reset()         { *m = RecvMessage{} }
-func (m *RecvMessage) String() string { return proto.CompactTextString(m) }
-func (*RecvMessage) ProtoMessage()    {}
-func (*RecvMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5d2504774879b91c, []int{4}
-}
-
-func (m *RecvMessage) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RecvMessage.Unmarshal(m, b)
-}
-func (m *RecvMessage) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RecvMessage.Marshal(b, m, deterministic)
-}
-func (m *RecvMessage) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RecvMessage.Merge(m, src)
-}
-func (m *RecvMessage) XXX_Size() int {
-	return xxx_messageInfo_RecvMessage.Size(m)
-}
-func (m *RecvMessage) XXX_DiscardUnknown() {
-	xxx_messageInfo_RecvMessage.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_RecvMessage proto.InternalMessageInfo
-
-func (m *RecvMessage) GetSender() int64 {
-	if m != nil {
-		return m.Sender
-	}
-	return 0
-}
-
-func (m *RecvMessage) GetSeq() int64 {
-	if m != nil {
-		return m.Seq
-	}
-	return 0
-}
-
-func (m *RecvMessage) GetSendTime() int64 {
-	if m != nil {
-		return m.SendTime
-	}
-	return 0
-}
-
-type isRecvMessage_Content interface {
-	isRecvMessage_Content()
-}
-
-type RecvMessage_Text struct {
-	Text *Text `protobuf:"bytes,5,opt,name=text,proto3,oneof"`
-}
-
-type RecvMessage_Image struct {
-	Image *Image `protobuf:"bytes,6,opt,name=image,proto3,oneof"`
-}
-
-func (*RecvMessage_Text) isRecvMessage_Content() {}
-
-func (*RecvMessage_Image) isRecvMessage_Content() {}
-
-func (m *RecvMessage) GetContent() isRecvMessage_Content {
-	if m != nil {
-		return m.Content
-	}
-	return nil
-}
-
-func (m *RecvMessage) GetText() *Text {
-	if x, ok := m.GetContent().(*RecvMessage_Text); ok {
-		return x.Text
-	}
-	return nil
-}
-
-func (m *RecvMessage) GetImage() *Image {
-	if x, ok := m.GetContent().(*RecvMessage_Image); ok {
-		return x.Image
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*RecvMessage) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*RecvMessage_Text)(nil),
-		(*RecvMessage_Image)(nil),
-	}
 }
 
 type RequestPacket struct {
@@ -490,7 +68,7 @@ func (m *RequestPacket) Reset()         { *m = RequestPacket{} }
 func (m *RequestPacket) String() string { return proto.CompactTextString(m) }
 func (*RequestPacket) ProtoMessage()    {}
 func (*RequestPacket) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5d2504774879b91c, []int{5}
+	return fileDescriptor_5d2504774879b91c, []int{0}
 }
 
 func (m *RequestPacket) XXX_Unmarshal(b []byte) error {
@@ -535,7 +113,7 @@ func (m *RequestPacket) GetData() []byte {
 type ResponsePacket struct {
 	Type                 PacketType `protobuf:"varint,1,opt,name=type,proto3,enum=pb.PacketType" json:"type,omitempty"`
 	ReqId                int32      `protobuf:"varint,2,opt,name=req_id,json=reqId,proto3" json:"req_id,omitempty"`
-	Code                 ErrorCode  `protobuf:"varint,3,opt,name=code,proto3,enum=pb.ErrorCode" json:"code,omitempty"`
+	Code                 int32      `protobuf:"varint,3,opt,name=code,proto3" json:"code,omitempty"`
 	Message              string     `protobuf:"bytes,4,opt,name=message,proto3" json:"message,omitempty"`
 	Data                 []byte     `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
@@ -547,7 +125,7 @@ func (m *ResponsePacket) Reset()         { *m = ResponsePacket{} }
 func (m *ResponsePacket) String() string { return proto.CompactTextString(m) }
 func (*ResponsePacket) ProtoMessage()    {}
 func (*ResponsePacket) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5d2504774879b91c, []int{6}
+	return fileDescriptor_5d2504774879b91c, []int{1}
 }
 
 func (m *ResponsePacket) XXX_Unmarshal(b []byte) error {
@@ -582,11 +160,11 @@ func (m *ResponsePacket) GetReqId() int32 {
 	return 0
 }
 
-func (m *ResponsePacket) GetCode() ErrorCode {
+func (m *ResponsePacket) GetCode() int32 {
 	if m != nil {
 		return m.Code
 	}
-	return ErrorCode_EC_SUCCESS
+	return 0
 }
 
 func (m *ResponsePacket) GetMessage() string {
@@ -605,13 +183,6 @@ func (m *ResponsePacket) GetData() []byte {
 
 func init() {
 	proto.RegisterEnum("pb.PacketType", PacketType_name, PacketType_value)
-	proto.RegisterEnum("pb.App", App_name, App_value)
-	proto.RegisterEnum("pb.ReceiverType", ReceiverType_name, ReceiverType_value)
-	proto.RegisterType((*LoginReq)(nil), "pb.LoginReq")
-	proto.RegisterType((*Text)(nil), "pb.Text")
-	proto.RegisterType((*Image)(nil), "pb.Image")
-	proto.RegisterType((*SendMessage)(nil), "pb.SendMessage")
-	proto.RegisterType((*RecvMessage)(nil), "pb.RecvMessage")
 	proto.RegisterType((*RequestPacket)(nil), "pb.RequestPacket")
 	proto.RegisterType((*ResponsePacket)(nil), "pb.ResponsePacket")
 }
@@ -619,43 +190,22 @@ func init() {
 func init() { proto.RegisterFile("tcp.proto", fileDescriptor_5d2504774879b91c) }
 
 var fileDescriptor_5d2504774879b91c = []byte{
-	// 595 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xc4, 0x54, 0xcd, 0x4e, 0xdb, 0x4c,
-	0x14, 0xc5, 0x7f, 0x49, 0x7c, 0xf3, 0xf3, 0xcd, 0x37, 0xa5, 0x25, 0x50, 0xa9, 0x0a, 0x5e, 0x45,
-	0x2c, 0x58, 0x50, 0xf5, 0x01, 0x4c, 0xb0, 0xc0, 0x02, 0x9c, 0x68, 0x12, 0x4a, 0xbb, 0x8a, 0x82,
-	0x7d, 0x85, 0x2c, 0x1a, 0x7b, 0x6c, 0x0f, 0x08, 0xde, 0xa5, 0xab, 0xbe, 0x57, 0xdf, 0xa5, 0x9a,
-	0xf1, 0x38, 0xc9, 0xb6, 0xab, 0xee, 0xe6, 0x9c, 0x73, 0x67, 0xce, 0x39, 0x93, 0x89, 0xc1, 0x15,
-	0x31, 0x3f, 0xe5, 0x65, 0x2e, 0x72, 0x6a, 0xf2, 0x87, 0xa3, 0x1e, 0x96, 0x65, 0x5e, 0x56, 0x35,
-	0xe3, 0x15, 0xd0, 0xb9, 0xc9, 0x1f, 0xd3, 0x8c, 0x61, 0x41, 0x0f, 0xc1, 0x5a, 0x71, 0x3e, 0x34,
-	0x46, 0xc6, 0x78, 0x70, 0xd6, 0x3e, 0xe5, 0x0f, 0xa7, 0x3e, 0xe7, 0x4c, 0x72, 0xf4, 0x23, 0xb8,
-	0x09, 0xbe, 0xa4, 0x31, 0x2e, 0xd3, 0x64, 0x68, 0x8e, 0x8c, 0xb1, 0xc5, 0x3a, 0x35, 0x11, 0x26,
-	0xf4, 0x00, 0xda, 0xcf, 0x15, 0x96, 0x52, 0xb2, 0x94, 0xd4, 0x92, 0x30, 0x4c, 0xe8, 0x3e, 0x38,
-	0x22, 0x7f, 0xc2, 0x6c, 0x68, 0x8f, 0x8c, 0xb1, 0xcb, 0x6a, 0xe0, 0x1d, 0x81, 0xbd, 0xc0, 0x57,
-	0x41, 0x29, 0xd8, 0x02, 0x5f, 0x85, 0xf2, 0x73, 0x99, 0x5a, 0x7b, 0x87, 0xe0, 0x84, 0xeb, 0xd5,
-	0x23, 0x52, 0x02, 0xd6, 0x73, 0xf9, 0x43, 0x6f, 0x94, 0x4b, 0xef, 0xb7, 0x01, 0xdd, 0x39, 0x66,
-	0xc9, 0x2d, 0x56, 0x95, 0x9c, 0xf8, 0x02, 0xfd, 0x12, 0x63, 0x4c, 0x5f, 0xb0, 0x5c, 0x8a, 0x37,
-	0x8e, 0x3a, 0x37, 0x91, 0xb9, 0x99, 0x16, 0x16, 0x6f, 0x1c, 0x59, 0xaf, 0xdc, 0x41, 0xf4, 0x08,
-	0x3a, 0x0d, 0x6e, 0x8a, 0x34, 0x58, 0x9a, 0x56, 0x58, 0xe8, 0x12, 0x72, 0x29, 0x7b, 0x57, 0x98,
-	0x25, 0x4b, 0x91, 0xae, 0x51, 0x85, 0xb1, 0x58, 0x47, 0x12, 0x8b, 0x74, 0x8d, 0xf4, 0x93, 0x2e,
-	0xe0, 0x8c, 0x8c, 0x71, 0xf7, 0xac, 0x23, 0x8d, 0x65, 0xb1, 0xab, 0xbd, 0xba, 0x0c, 0x3d, 0x06,
-	0x27, 0x95, 0x65, 0x86, 0x2d, 0x35, 0xe0, 0xca, 0x01, 0xd5, 0xee, 0x6a, 0x8f, 0xd5, 0xca, 0xb9,
-	0x0b, 0xed, 0x38, 0xcf, 0x04, 0x66, 0xc2, 0xfb, 0x65, 0x40, 0x97, 0x61, 0xfc, 0xd2, 0xf4, 0xfb,
-	0x00, 0x2d, 0xe9, 0xb4, 0x89, 0xa9, 0xd1, 0xbf, 0x0d, 0x79, 0x0f, 0x7d, 0x86, 0xc5, 0x33, 0x56,
-	0x62, 0xb6, 0x8a, 0x9f, 0x50, 0x50, 0x0f, 0xec, 0x9d, 0xcb, 0x1f, 0xc8, 0xdd, 0xb5, 0xa2, 0xae,
-	0x5e, 0x69, 0x74, 0x00, 0xa6, 0x7e, 0x35, 0x0e, 0x33, 0xd3, 0x44, 0xfe, 0xf0, 0xc9, 0x4a, 0xac,
-	0x54, 0x85, 0x1e, 0x53, 0x6b, 0xef, 0xa7, 0x01, 0x03, 0x86, 0x15, 0xcf, 0xb3, 0x0a, 0xff, 0xe2,
-	0xe8, 0xf7, 0xd0, 0x2a, 0xb1, 0x58, 0x6e, 0x8e, 0x77, 0x4a, 0x2c, 0xc2, 0x84, 0x1e, 0x83, 0x1d,
-	0xe7, 0x09, 0x2a, 0x87, 0xc1, 0x59, 0x5f, 0x6e, 0x0d, 0xe4, 0xab, 0x9f, 0xe4, 0x09, 0x32, 0x25,
-	0xd1, 0x21, 0xb4, 0xd7, 0xf5, 0x4d, 0xeb, 0x47, 0xd6, 0xc0, 0x4d, 0x3c, 0x67, 0x1b, 0xef, 0xa4,
-	0x04, 0xd8, 0x7a, 0x53, 0x0a, 0x83, 0x99, 0x3f, 0xb9, 0x0e, 0x16, 0xcb, 0xbb, 0xe8, 0x3a, 0x9a,
-	0xde, 0x47, 0x64, 0x8f, 0x12, 0xe8, 0x69, 0xee, 0x66, 0x7a, 0x19, 0x46, 0xc4, 0xa0, 0x07, 0xf0,
-	0x4e, 0x33, 0xf3, 0x20, 0xba, 0x58, 0xde, 0x06, 0xf3, 0xb9, 0x7f, 0x19, 0x10, 0x93, 0xee, 0x03,
-	0xd1, 0xc2, 0x55, 0xe0, 0xb3, 0xc5, 0x79, 0xe0, 0x2f, 0x88, 0x45, 0xff, 0x83, 0x6e, 0x33, 0xfe,
-	0x3d, 0x9a, 0x10, 0xfb, 0x64, 0x06, 0x96, 0xcf, 0xb9, 0xe4, 0xfd, 0xd9, 0x6c, 0xc7, 0x49, 0x13,
-	0x7e, 0x74, 0xc1, 0xa6, 0xe1, 0x05, 0x31, 0x68, 0x17, 0xda, 0x92, 0x08, 0xa7, 0x73, 0x62, 0x36,
-	0xe0, 0x3e, 0x8c, 0x88, 0x45, 0xfb, 0xe0, 0x4a, 0x70, 0x13, 0x46, 0x77, 0xdf, 0x88, 0x7d, 0x72,
-	0x0d, 0xbd, 0xdd, 0x7f, 0x86, 0x0c, 0xc2, 0x82, 0x49, 0x10, 0x7e, 0x0d, 0xd8, 0xce, 0xf9, 0xff,
-	0x43, 0x7f, 0xcb, 0xce, 0x03, 0x46, 0x0c, 0x59, 0x78, 0x43, 0x5d, 0xb2, 0xe9, 0xdd, 0x8c, 0x98,
-	0x0f, 0x2d, 0xf5, 0x01, 0xf9, 0xfc, 0x27, 0x00, 0x00, 0xff, 0xff, 0x04, 0x2a, 0x26, 0xdc, 0x5f,
-	0x04, 0x00, 0x00,
+	// 267 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x90, 0xcf, 0x4a, 0xf3, 0x40,
+	0x14, 0xc5, 0xbf, 0x49, 0x93, 0x7e, 0xf4, 0xaa, 0x71, 0xb8, 0x2a, 0x66, 0x19, 0xba, 0x0a, 0x2e,
+	0xb2, 0xd0, 0x27, 0x88, 0x75, 0xa8, 0xa1, 0x38, 0x96, 0x49, 0xa4, 0xb8, 0x0a, 0xf9, 0x73, 0x91,
+	0x22, 0x9a, 0x49, 0x32, 0x2e, 0xfa, 0x10, 0xbe, 0xb3, 0x30, 0x9a, 0xd6, 0xad, 0xbb, 0x33, 0xe7,
+	0x0c, 0xe7, 0x77, 0xb8, 0x30, 0x33, 0xb5, 0x8e, 0x75, 0xdf, 0x9a, 0x16, 0x1d, 0x5d, 0xcd, 0x37,
+	0x70, 0xa2, 0xa8, 0xfb, 0xa0, 0xc1, 0xac, 0xcb, 0xfa, 0x95, 0x0c, 0xce, 0xc1, 0x35, 0x3b, 0x4d,
+	0x01, 0x0b, 0x59, 0xe4, 0x5f, 0xfb, 0xb1, 0xae, 0xe2, 0xef, 0x24, 0xdf, 0x69, 0x52, 0x36, 0x43,
+	0x1f, 0x9c, 0x6d, 0x13, 0x38, 0x21, 0x8b, 0x3c, 0xe5, 0x6c, 0x1b, 0x44, 0x70, 0x9b, 0xd2, 0x94,
+	0xc1, 0x24, 0x64, 0xd1, 0xb1, 0xb2, 0x7a, 0xfe, 0xc9, 0xc0, 0x57, 0x34, 0xe8, 0xf6, 0x7d, 0xa0,
+	0x3f, 0x54, 0x5f, 0xc0, 0xb4, 0xa7, 0xae, 0xd8, 0xd7, 0x7b, 0x3d, 0x75, 0xa9, 0x25, 0xd4, 0x6d,
+	0x43, 0x96, 0xe0, 0x29, 0xab, 0x31, 0x80, 0xff, 0x6f, 0x34, 0x0c, 0xe5, 0x0b, 0x05, 0x6e, 0xc8,
+	0xa2, 0x99, 0x1a, 0x9f, 0xfb, 0x3d, 0xde, 0x61, 0xcf, 0x95, 0x01, 0x38, 0xc0, 0x10, 0xc1, 0x5f,
+	0x27, 0x8b, 0x95, 0xc8, 0x8b, 0x27, 0xb9, 0x92, 0x8f, 0x1b, 0xc9, 0xff, 0xfd, 0xf2, 0xb2, 0x74,
+	0x29, 0x8b, 0x54, 0x72, 0x86, 0x97, 0x70, 0x36, 0x7a, 0x42, 0xde, 0x15, 0x0f, 0x22, 0xcb, 0x92,
+	0xa5, 0xe0, 0x0e, 0x9e, 0x03, 0xff, 0x09, 0xee, 0x45, 0xa2, 0xf2, 0x5b, 0x91, 0xe4, 0x7c, 0x82,
+	0xa7, 0x70, 0x34, 0x7e, 0x7f, 0x96, 0x0b, 0xee, 0x56, 0x53, 0x7b, 0xe9, 0x9b, 0xaf, 0x00, 0x00,
+	0x00, 0xff, 0xff, 0x5f, 0x80, 0x97, 0x21, 0x76, 0x01, 0x00, 0x00,
 }

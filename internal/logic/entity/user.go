@@ -1,4 +1,4 @@
-package model
+package entity
 
 const (
 	GenderUnknown = 0 // 性别位置

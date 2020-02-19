@@ -1,0 +1,21 @@
+// logic 供 http 调用的接口
+
+syntax = "proto3";
+package pb;
+
+import "common.proto";
+import "google/protobuf/empty.proto";
+
+
+message RegisterDeviceReq {
+
+}
+
+message RegisterDeviceRsp {
+
+}
+
+// rpc
+service Logic {
+    rpc RegisterDevice (RegisterDeviceReq) returns (RegisterDeviceRsp)
+}

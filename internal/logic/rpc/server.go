@@ -15,5 +15,7 @@ func (LogicRpcServer) SignIn(context.Context, *pb.SignInReq) (*empty.Empty, erro
 }
 
 func (LogicRpcServer) SendMessage(context.Context, *pb.UpMessage) (*empty.Empty, error) {
+	// get device id by user id.
+
 	panic("implement me")
 }

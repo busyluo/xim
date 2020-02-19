@@ -34,10 +34,11 @@ message DownMessage {
     }
 }
 
-// rpc
-// message Empty {}
 message SendMessageResponse {
+
 }
+
+// rpc
 service Logic {
     rpc SignIn (SignInReq) returns (google.protobuf.Empty);
     rpc SendMessage (UpMessage) returns (google.protobuf.Empty);
