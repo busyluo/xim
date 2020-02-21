@@ -5,8 +5,8 @@ import (
 	"github.com/golang/protobuf/proto"
 	"net"
 	"time"
-	"xim/internal/tcpserver/codec"
-	"xim/internal/tcpserver/pb"
+	"xim/internal/app/tcpserver/codec"
+	"xim/internal/app/tcpserver/pb"
 )
 
 type TcpClient struct {

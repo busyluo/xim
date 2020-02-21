@@ -3,11 +3,11 @@ package main
 import (
 	log "github.com/sirupsen/logrus"
 	"os"
-	"xim/configs"
-	"xim/internal/tcpserver"
+	"xim/internal/app/tcpserver"
+	"xim/internal/pkg/config"
 )
 
 func main() {
 	log.SetOutput(os.Stdout)
-	tcpserver.Run(configs.TcpServerConf.TcpListenAddr)
+	tcpserver.Run(config.TcpServerConf.TcpListenAddr)
 }

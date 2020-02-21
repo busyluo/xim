@@ -1,7 +1,7 @@
 package main
 
 import (
-	"xim/internal/logic"
+	"xim/internal/app/logic"
 )
 
 func main() {
