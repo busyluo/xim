@@ -5,7 +5,7 @@ package pb;
 enum PacketType {
     PACKET_UNKNOWN = 0;
     PACKET_SIGN_IN = 1; // 登入
-    PACKET_SEND_MESSAGE = 2; // 消息
+    PACKET_MESSAGE = 2; // 消息
     PACKET_HEARTBEAT = 3; // 心跳
     PACKET_SYNC = 4; // 同步消息
 }

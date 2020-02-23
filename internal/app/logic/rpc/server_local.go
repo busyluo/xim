@@ -13,5 +13,6 @@ func SignIn(ctx context.Context, req *pb.SignInReq) (*empty.Empty, error) {
 }
 
 func SendMessage(ctx context.Context, m *pb.UpMessage) (*empty.Empty, error) {
-	service.MessageService.SendMessage(ctx, m)
+	err := service.MessageService.SendMessage(ctx, m)
+	return nil, err
 }

@@ -1,4 +1,4 @@
-package tcpserver
+package logic
 
 import "sync"
 

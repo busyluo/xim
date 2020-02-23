@@ -1,6 +1,7 @@
-package tcpserver
+package logic
 
 import (
+	"context"
 	"github.com/golang/protobuf/proto"
 	tcppb "xim/internal/app/tcpserver/pb"
 	"xim/internal/app/tcpserver/rpc"
@@ -21,7 +22,7 @@ func (h *Handler) Handle(ctx *ConnCtx, req tcppb.RequestPacket) {
 		h.SignIn(req)
 	case tcppb.PacketType_PACKET_HEARTBEAT:
 		h.HeartBeat(req)
-	case tcppb.PacketType_PACKET_SEND_MESSAGE:
+	case tcppb.PacketType_PACKET_MESSAGE:
 		h.Message(req)
 	}
 }
@@ -30,12 +31,13 @@ func (h *Handler) SignIn(req tcppb.RequestPacket) {
 	var r pb.SignInReq
 	proto.Unmarshal(req.Data, &r)
 
-	ctx := h.ctx
-	ctx.DeviceId = r.DeviceId
-	ctx.UserId = r.UserId
-	ctx.AppId = int8(r.App)
+	conn := h.ctx
+	conn.DeviceId = r.DeviceId
+	conn.UserId = r.UserId
+	conn.AppId = int8(r.App)
 
-	err := rpc.SignIn(r)
+	ctx := context.WithValue(context.Background(), "user", h.ctx.UserId)
+	err := rpc.SignIn(ctx, r)
 
 	if err != nil {
 		h.ResponseError(req, pb.ErrorCode_EC_INTERNAL_SERVICE, err.Error())
@@ -43,7 +45,7 @@ func (h *Handler) SignIn(req tcppb.RequestPacket) {
 	}
 
 	// 保存连接
-	manager.Store(r.DeviceId, ctx)
+	manager.Store(r.DeviceId, conn)
 }
 
 func (h *Handler) HeartBeat(req tcppb.RequestPacket) {
@@ -54,7 +56,8 @@ func (h *Handler) Message(req tcppb.RequestPacket) {
 	var msg pb.UpMessage
 	proto.Unmarshal(req.Data, &msg)
 
-	err := rpc.SendMessage(msg)
+	ctx := context.WithValue(context.Background(), "user", h.ctx.UserId)
+	err := rpc.SendMessage(ctx, msg)
 	if err != nil {
 		h.ResponseError(req, pb.ErrorCode_EC_INTERNAL_SERVICE, err.Error())
 		return

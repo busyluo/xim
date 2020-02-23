@@ -44,5 +44,5 @@ func Login(c echo.Context) error {
 }
 
 func newUUID() string {
-
+	return "123"
 }

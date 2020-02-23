@@ -3,19 +3,24 @@ package rpc
 import (
 	"context"
 	"github.com/golang/protobuf/ptypes/empty"
+	"xim/internal/app/logic/service"
 	"xim/internal/pkg/pb"
 )
 
-type LogicRpcServer struct {
+type Server struct {
 	pb.UnimplementedLogicServer
 }
 
-func (LogicRpcServer) SignIn(context.Context, *pb.SignInReq) (*empty.Empty, error) {
+func NewServer() *Server {
+	return &Server{UnimplementedLogicServer: pb.UnimplementedLogicServer{}}
+}
+
+func (Server) SignIn(context.Context, *pb.SignInReq) (*empty.Empty, error) {
 	panic("implement me")
 }
 
-func (LogicRpcServer) SendMessage(context.Context, *pb.UpMessage) (*empty.Empty, error) {
+func (Server) SendMessage(ctx context.Context, m *pb.UpMessage) (*empty.Empty, error) {
 	// get device id by user id.
-
-	panic("implement me")
+	err := service.MessageService.SendMessage(ctx, m)
+	return nil, err
 }

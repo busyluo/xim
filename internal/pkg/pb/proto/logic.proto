@@ -11,16 +11,21 @@ message SignInReq {
     string token = 4; // 通过http api登录获取
 }
 
+// 消息内容
+message Content {
+    oneof content {
+        Text text = 1;
+        Image image = 2;
+    }
+}
+
 // 上行消息
 message UpMessage {
     ReceiverType receiver_type = 1;
     int64 receiver = 2;
     int64 seq = 3;
     int64 send_time = 4;
-    oneof content {
-        Text text = 5;
-        Image image = 6;
-    }
+    Content content = 5;
 }
 
 // 下行消息
@@ -28,10 +33,7 @@ message DownMessage {
     int64 sender = 2;
     int64 seq = 3;
     int64 send_time = 4;
-    oneof content {
-        Text text = 5;
-        Image image = 6;
-    }
+    Content content = 5;
 }
 
 message SendMessageResponse {
@@ -42,4 +44,14 @@ message SendMessageResponse {
 service Logic {
     rpc SignIn (SignInReq) returns (google.protobuf.Empty);
     rpc SendMessage (UpMessage) returns (google.protobuf.Empty);
+}
+
+message DispatchReq {
+    repeated int64 id = 1;
+    DownMessage msg = 2;
+}
+
+
+service Tcp {
+    rpc DispatchMessage (DispatchReq) returns (google.protobuf.Empty);
 }

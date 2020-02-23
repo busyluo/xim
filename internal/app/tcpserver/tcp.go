@@ -3,12 +3,21 @@ package tcpserver
 import (
 	_ "github.com/golang/protobuf/proto"
 	"net"
+	"xim/internal/app/tcpserver/logic"
+	"xim/internal/app/tcpserver/rpc/server"
+	"xim/internal/pkg/local_call"
 )
 
 type TcpServer struct {
 }
 
+func initRpc() {
+	local_call.TcpServer = server.NewTcpServer()
+}
+
 func Run(addr string) {
+	initRpc()
+
 	tcpAddr, err := net.ResolveTCPAddr("tcp", addr)
 	if err != nil {
 		panic(err)
@@ -21,17 +30,17 @@ func Run(addr string) {
 		conn, _ := lis.AcceptTCP()
 		conn.SetKeepAlive(true)
 
-		go ServeConn(conn)
+		go logic.ServeConn(conn)
 	}
 }
 
 //func Run(addr string) {
-//	log.Info("tcp server started.")
-//	server := framedserver.NewFramedServer(addr)
+//	log.Info("tcp local started.")
+//	local := framedserver.NewFramedServer(addr)
 //	log.Info("listening...")
 //
 //	for {
-//		conn, err := server.Accept()
+//		conn, err := local.Accept()
 //		conn.SetKeepAlive(true)
 //		conn.SetReadBuffer(4096)
 //		conn.SetWriteBuffer(4096)

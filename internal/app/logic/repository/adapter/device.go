@@ -6,6 +6,6 @@ import (
 )
 
 type DeviceRepository interface {
-	Register(ctx context.Context) error
+	NewDevice(ctx context.Context, device entity.Device) error
 	GetByUserID(ctx context.Context, id int64) (*entity.Device, error)
 }

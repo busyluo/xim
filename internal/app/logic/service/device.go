@@ -3,17 +3,17 @@ package service
 import (
 	"context"
 	"xim/internal/app/logic/entity"
-	"xim/internal/app/logic/repository1"
+	"xim/internal/app/logic/repository"
 )
 
-type DeviceService struct {
-	repo repository1.Device
+type device struct{}
+
+var Device device
+
+func (device) NewDevice(ctx context.Context, d entity.Device) error {
+	return repository.Device.NewDevice(ctx, d)
 }
 
-func NewDeviceService(repo repository1.Device) DeviceService {
-	return DeviceService{repo: repo}
-}
-
-func (DeviceService) Register(ctx context.Context, device entity.Device) (int64, error) {
+func (device) Register(ctx context.Context, device entity.Device) (int64, error) {
 	panic("implement me")
 }

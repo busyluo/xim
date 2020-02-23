@@ -23,7 +23,7 @@ func main() {
 	// init repository
 	repository.InitOrmRepository(db)
 
-	// start tcp server
+	// start tcp local
 	go func() {
 		tcpserver.Run(config.TcpServerConf.TcpListenAddr)
 	}()
@@ -33,7 +33,7 @@ func main() {
 	// Routes
 	router.Route(e)
 
-	// Start server
+	// Start local
 	err = e.Start(":8080")
 	log.Fatal(err)
 }

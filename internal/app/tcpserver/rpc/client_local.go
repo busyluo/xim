@@ -1,16 +1,17 @@
 package rpc
 
 import (
-	svr "xim/internal/app/logic/rpc"
+	"context"
+	"xim/internal/pkg/local_call"
 	"xim/internal/pkg/pb"
 )
 
-func SignIn(r pb.SignInReq) error {
-	_, err := svr.SignIn(nil, &r)
+func SignIn(_ context.Context, r pb.SignInReq) error {
+	_, err := local_call.LogicServer.SignIn(nil, &r)
 	return err
 }
 
-func SendMessage(m pb.UpMessage) error {
-	_, err := svr.SendMessage(nil, &m)
+func SendMessage(_ context.Context, m pb.UpMessage) error {
+	_, err := local_call.LogicServer.SendMessage(nil, &m)
 	return err
 }

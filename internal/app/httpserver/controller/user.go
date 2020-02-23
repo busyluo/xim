@@ -6,8 +6,8 @@ import (
 	"xim/internal/app/logic/service"
 )
 
-func AddUser(ctx echo.Context) error {
+func NewUser(ctx echo.Context) error {
 	var u entity.User
 	u.Nickname = ctx.Param("name")
-	service.User.AddUser(u)
+	return service.User.NewUser(u)
 }

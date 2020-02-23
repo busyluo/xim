@@ -8,6 +8,6 @@ type user struct{}
 
 var User user
 
-func (user) AddUser(u entity.User) {
-
+func (user) NewUser(u entity.User) error {
+	return nil
 }

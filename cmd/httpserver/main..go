@@ -28,7 +28,7 @@ func main() {
 	// Routes
 	e.GET("/login", login)
 
-	// Start server
+	// Start local
 	err := e.Start(":8080")
 	e.Logger.Fatal(err)
 }
