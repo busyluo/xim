@@ -1,6 +1,7 @@
 package logic
 
 import (
+	"xim/internal/app/logic/cache"
 	"xim/internal/app/logic/rpc"
 	"xim/internal/pkg/local_call"
 )
@@ -10,5 +11,6 @@ func initRpc() {
 }
 
 func init() {
+	cache.InitRedisCache()
 	initRpc()
 }

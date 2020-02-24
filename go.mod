@@ -6,7 +6,6 @@ require (
 	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/go-redis/redis/v7 v7.2.0
 	github.com/golang/protobuf v1.3.3
-	github.com/google/wire v0.4.0
 	github.com/jinzhu/configor v1.1.1
 	github.com/jinzhu/gorm v1.9.12
 	github.com/joho/godotenv v1.3.0
