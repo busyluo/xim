@@ -1,5 +1,5 @@
 # Xim is a IM server writen by Golang.  (WIP)
-Build with mysql, redis, gRPC, GORM and so on.
+Build with MySQL, Redis, gRPC, GORM and so on.
 
 ## Documentation
 
