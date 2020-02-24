@@ -17,7 +17,7 @@ Build with mysql, redis, gRPC, GORM and so on.
 
 ## License
 
-[The MIT License (MIT)](https://raw.githubusercontent.com/v2ray/v2ray-core/master/LICENSE)
+[The MIT License (MIT)](https://raw.githubusercontent.com/busyluo/xim/master/LICENSE)
 
 ## Credits
 
